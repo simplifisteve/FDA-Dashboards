@@ -1,5 +1,5 @@
 ---
-title: Example report
+title: Example Report
 ---
 
 # A brief history of space exploration

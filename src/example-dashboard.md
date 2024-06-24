@@ -1,6 +1,6 @@
 ---
 theme: dashboard
-title: Example dashboard
+title: Example Dashboard
 toc: false
 ---
 
