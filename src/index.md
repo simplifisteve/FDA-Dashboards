@@ -57,11 +57,6 @@ toc: false
   <div class="card"><h1>Published 483s</h1>1,727</div>
 </div>
 
-```js
-const aapl = FileAttachment("aapl.csv").csv({typed: true});
-const penguins = FileAttachment("penguins.csv").csv({typed: true});
-```
-
 ---
 
 ## Data Tables
@@ -69,10 +64,24 @@ const penguins = FileAttachment("penguins.csv").csv({typed: true});
 Here are the original data tables from the FDA website:
 
 <!-- Load and transform the data -->
+
 ```js
-const fda_inspections = FileAttachment("src/fda_inspections.csv").csv({typed: true});
-const fda_citations = FileAttachment("src/fda_citations.csv").csv({typed: true});
-const fda_483s = FileAttachment("src/fda_483s.csv").csv({typed: true});
+const fda_inspections = FileAttachment("fda_inspections.csv").csv({typed: true});
+const fda_citations = FileAttachment("fda_citations.csv").csv({typed: true});
+const fda_483s = FileAttachment("fda_483s.csv").csv({typed: true});
 ```
 
+### Inspections Details
+<div class="card">
+  ${Inputs.table(fda_inspections)}
+</div>
 
+### Inspections Citations Details
+<div class="card">
+  ${Inputs.table(fda_citations)}
+</div>
+
+### Published 483s
+<div class="card">
+  ${Inputs.table(fda_483s)}
+</div>
