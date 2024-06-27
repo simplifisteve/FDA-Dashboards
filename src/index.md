@@ -47,7 +47,7 @@ toc: false
 
 <div class="hero">
   <h1>FDA Dashboards</h1>
-  <h2>Only showing data for Biologics, Drugs, and Devices.</h2>
+  <h2>Only showing data for Biologics, Drugs, and Devices. Fiscal Years 2009 -  2024.</h2>
   <a href="https://datadashboard.fda.gov/ora/cd/inspections.htm">View original source<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
 </div>
 
@@ -66,22 +66,47 @@ Here are the original data tables from the FDA website:
 <!-- Load and transform the data -->
 
 ```js
-const fda_inspections = FileAttachment("fda_inspections.csv").csv({typed: true});
 const fda_citations = FileAttachment("fda_citations.csv").csv({typed: true});
 const fda_483s = FileAttachment("fda_483s.csv").csv({typed: true});
 ```
 
+```js
+const fda_inspections = FileAttachment("fda_inspections.csv").csv({
+  typed: true,
+  parse: {
+    "Zip": d => d ? parseInt(d.replace(/,/g, '')) : null
+  }
+});
+```
+
 ### Inspections Details
 <div class="card">
-  ${Inputs.table(fda_inspections)}
+  ${Inputs.table(fda_inspections, {
+    format: {
+      "FEI Number": (a) => a.toFixed(0),
+      "Fiscal Year": (b) => b.toFixed(0),
+      "Inspection ID": (c) => c.toFixed(0),
+      "Zip": (d) => d ? d.toLocaleString('en-US', {useGrouping: false}) : ''
+    }
+  })}
 </div>
 
 ### Inspections Citations Details
 <div class="card">
-  ${Inputs.table(fda_citations)}
+  ${Inputs.table(fda_citations, {
+    format: {
+      "Inspection ID": (a) => a.toFixed(0),
+      "FEI Number": (b) => b.toFixed(0),
+    }
+  })}
 </div>
 
 ### Published 483s
 <div class="card">
-  ${Inputs.table(fda_483s)}
+  ${Inputs.table(fda_483s, {
+    format: {
+      "Record ID": (a) => a.toFixed(0),
+      "FEI Number": (b) => b.toFixed(0),
+    }  
+  })}
 </div>
