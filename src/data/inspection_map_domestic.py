@@ -1,6 +1,6 @@
 import pandas as pd 
 import sys
-import us
+# import us
 
 # Import the entire fda_inspections dataset
 fda_inspections = pd.DataFrame(pd.read_csv("src/fda_inspections.csv"))
@@ -21,14 +21,14 @@ inspections_state['State'] = inspections_state['State'].fillna('No State')
 # Update rows where State is a dash
 inspections_state.loc[inspections_state['State'] == '-', 'State'] = "No State"
 
-# Function to convert state name to state code
-def get_state_code(state_name):
-    try:
-        return us.states.lookup(state_name).abbr
-    except AttributeError:
-        return None
+# # Function to convert state name to state code
+# def get_state_code(state_name):
+#     try:
+#         return us.states.lookup(state_name).abbr
+#     except AttributeError:
+#         return None
 
-inspections_state['State_Code'] = inspections_state['State'].apply(get_state_code)
+# inspections_state['State_Code'] = inspections_state['State'].apply(get_state_code)
 
 # Remove any rows where State is "No State" and Total is "20194"
 condition = (inspections_state['State'] == 'No State') & (inspections_state['Total'] == 20194)

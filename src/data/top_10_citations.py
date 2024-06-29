@@ -13,8 +13,8 @@ top_10_citations = fda_citations.groupby(["Act/CFR Number", "Short Description"]
 # Convert the series 'top_10_citations' into a DataFrame and reset the index
 top_10_citations_table = top_10_citations.reset_index()
 
-# Rename the 'FEI Number' column to Count
+# Rename the 'FEI Number' column to Total
 top_10_citations_table.rename(columns = {'FEI Number' : 'Total'}, inplace = True)
 
 # Write to CSV
-top_10_citations_table.to_csv(sys.stdout)
+top_10_citations_table.to_csv("top_10_citations_table.csv", index=False)
