@@ -5,7 +5,7 @@ title: FDA Citations
 <!-- Load and transform the data -->
 
 ```js
-const fda_inspections = FileAttachment("fda_citations.csv").csv({typed: true});
+const fda_citations = FileAttachment("fda_citations.csv").csv({typed: true});
 const top_10_citations = FileAttachment("data/top_10_citations_table.csv").csv({typed: true});
 ```
 <div class="grid grid-cols-3">
@@ -56,7 +56,7 @@ const top_10_citations = FileAttachment("data/top_10_citations_table.csv").csv({
       fontSize: 14,
       fill: "white",
       fontWeight: "bold",
-      textAnchor: "start"
+      textAnchor: "start" // position "Total" text to the right of the bar
     })
   ],
   style: {
@@ -66,4 +66,16 @@ const top_10_citations = FileAttachment("data/top_10_citations_table.csv").csv({
     fontSize: 15
   }
 })}
+</div>
+
+---
+
+## Inspections Citations Details
+<div class="card">
+  ${Inputs.table(fda_citations, {
+    format: {
+      "Inspection ID": (a) => a.toFixed(0),
+      "FEI Number": (b) => b.toFixed(0),
+    }
+  })}
 </div>
