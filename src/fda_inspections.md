@@ -19,6 +19,8 @@ const fda_inspections = FileAttachment("fda_inspections.csv").csv({
 const inspection_countries = FileAttachment("data/inspection_countries.csv").csv({typed: true});
 const class_fiscal = FileAttachment("data/class_fiscal.csv").csv({typed: true});
 const class_product = FileAttachment("data/class_product.csv").csv({typed: true});
+const inspectionData = FileAttachment("data/inspections_state.csv").csv({typed: true})
+const us = FileAttachment("data/states-albers-10m.json").json();
 ```
 
 ```js
@@ -66,8 +68,8 @@ const color = Plot.scale({
     grid: true
   },
   marks: [
-    Plot.line(inspection_countries, {x: "Fiscal Year", y: "Domestic", stroke: "steelblue", strokeWidth: 2}),
-    Plot.line(inspection_countries, {x: "Fiscal Year", y: "Foreign", stroke: "orange", strokeWidth: 2}),
+    Plot.line(inspection_countries, {x: "Fiscal Year", y: "Domestic", stroke: "steelblue", strokeWidth: 2, tip: true}),
+    Plot.line(inspection_countries, {x: "Fiscal Year", y: "Foreign", stroke: "orange", strokeWidth: 2, tip: true}),
     Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Domestic", stroke: "steelblue", fill: "white"}),
     Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Foreign", stroke: "orange", fill: "white"}),
     Plot.text(inspection_countries, {x: "Fiscal Year", y: "Domestic", text: d => d.Domestic, dy: -10, fontSize: 12}),
@@ -130,7 +132,7 @@ const color = Plot.scale({
     range: ["green", "orange", "red"]
   },
   marks: [
-    Plot.line(class_fiscal, {x: "Fiscal Year", y: "Count", stroke: "Classification", strokeWidth: 2}),
+    Plot.line(class_fiscal, {x: "Fiscal Year", y: "Count", stroke: "Classification", strokeWidth: 2, tip: true}),
     Plot.dot(class_fiscal, {x: "Fiscal Year", y: "Count", stroke: "Classification", fill: "white"}),
     Plot.text(class_fiscal, {x: "Fiscal Year", y: "Count", text: d => d.Count, dy: -10, fontSize: 14}),
   ],
@@ -185,6 +187,66 @@ const color = Plot.scale({
     }
   })}
 </div>
+
+---
+
+## Map of Domestic Inspections
+
+```js
+// Convert TopoJSON to GeoJSON
+const states = topojson.feature(us, us.objects.states)
+
+// Create a more diverse color scale
+const color = d3.scaleQuantile()
+  .domain(inspectionData.map(d => d.Total))
+  .range(d3.schemeYlOrRd[9])
+
+// Create the map
+const chart = Plot.plot({
+  projection: "albers-usa",
+  color: {
+    type: "quantile",
+    scheme: "YlOrRd",
+    n: 9
+  },
+  marks: [
+    Plot.geo(states, {
+      fill: d => {
+        const stateData = inspectionData.find(s => s.State_Code === d.properties.code);
+        return stateData ? color(stateData.Total) : "#ccc";
+      },
+      stroke: "white",
+      strokeWidth: 0.5,
+      title: d => {
+        const stateData = inspectionData.find(s => s.State_Code === d.properties.code);
+        return stateData 
+          ? `${d.properties.name}: ${stateData.Total.toLocaleString()} inspections`
+          : `${d.properties.name}: No data`;
+      }
+    }),
+    Plot.text(states.features, {
+      text: d => d.properties.code,
+      fill: "black",
+      stroke: "white",
+      strokeWidth: 0.5,
+      fontSize: 8,
+      dx: d => d.properties.dx || 0,
+      dy: d => d.properties.dy || 0
+    })
+  ],
+  width: 975,
+  height: 610,
+  style: {
+    backgroundColor: "white",
+    overflow: "visible"
+  },
+  // Add a color legend
+  legend: true
+})
+
+// Display the chart
+display(chart)
+```
 
 ---
 

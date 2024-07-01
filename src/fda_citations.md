@@ -1,5 +1,7 @@
 ---
+theme: dashboard
 title: FDA Citations
+toc: false
 ---
 
 <!-- Load and transform the data -->
@@ -35,7 +37,8 @@ const top_10_citations = FileAttachment("data/top_10_citations_table.csv").csv({
       x: "Total",
       y: "Short Description",
       sort: {y: "-x"},
-      fill: "steelblue"
+      fill: "steelblue",
+      tip: true
     }),
     Plot.text(top_10_citations, {
       x: d => d.Total / 2, // Position text in the middle of each bar
