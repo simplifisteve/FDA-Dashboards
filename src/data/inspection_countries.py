@@ -25,4 +25,4 @@ merged_inspection_counts.columns = ['Fiscal Year', 'Domestic', 'Foreign']
 merged_inspection_counts = merged_inspection_counts.fillna(0)
 
 # Write to CSV
-merged_inspection_counts.to_csv(sys.stdout, index=False)
+merged_inspection_counts.to_csv("inspection_countries.csv", index=False)

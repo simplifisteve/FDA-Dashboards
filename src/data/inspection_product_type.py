@@ -8,8 +8,8 @@ fda_inspections = pd.DataFrame(pd.read_csv("src/fda_inspections.csv"))
 fda_inspections = fda_inspections[fda_inspections["Product Type"].isin(["Biologics", "Drugs", "Devices"])]
 
 # Inspection Classification by Product Type
-class_product = fda_inspections.groupby(["Fiscal Year", "Product Type"]).size().reset_index()
-class_product.columns = ["Fiscal Year", "Product Type", "Total"]
+class_product = fda_inspections.groupby(["Fiscal Year", "Product Type", "Classification"]).size().reset_index()
+class_product.columns = ["Fiscal Year", "Product Type", "Classification", "Total"]
 
 # Write to CSV
-class_product.to_csv(sys.stdout, index=False)
+class_product.to_csv("class_product.csv", index=False)

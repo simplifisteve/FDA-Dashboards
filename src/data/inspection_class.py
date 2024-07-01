@@ -12,4 +12,4 @@ class_fiscal = fda_inspections.groupby(["Fiscal Year", "Classification"]).size()
 class_fiscal.columns = ["Fiscal Year", "Classification", "Count"]
 
 # Write to CSV
-class_fiscal.to_csv(sys.stdout, index=False)
+class_fiscal.to_csv("class_fiscal.csv", index=False)

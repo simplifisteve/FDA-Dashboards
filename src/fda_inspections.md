@@ -9,7 +9,16 @@ toc: false
 <!-- Load and transform the data -->
 
 ```js
-const fda_inspections = FileAttachment("fda_inspections.csv").csv({typed: true});
+const fda_inspections = FileAttachment("fda_inspections.csv").csv({
+  typed: true,
+  parse: {
+    "Zip": d => d ? parseInt(d.replace(/,/g, '')) : null
+  }
+});
+
+const inspection_countries = FileAttachment("data/inspection_countries.csv").csv({typed: true});
+const class_fiscal = FileAttachment("data/class_fiscal.csv").csv({typed: true});
+const class_product = FileAttachment("data/class_product.csv").csv({typed: true});
 ```
 
 ```js
@@ -29,9 +38,165 @@ const color = Plot.scale({
     <span class="big">${fda_inspections.filter((d) => d["Country/Area"] === "United States").length.toLocaleString("en-US")}</span>
   </div>
   <div class="card">
-    <h2>Foreign Countries</h2>
+    <h2>Foreign Countries 🌏</h2>
     <span class="big">${fda_inspections.filter((d) => d["Country/Area"] !== "United States").length.toLocaleString("en-US")}</span>
   </div>
 </div>
 
+---
 
+## Domestic & Foreign Inspections
+
+<div class="card">
+  ${Plot.plot({
+  width: window.innerWidth - 40,
+  height: 600,
+  marginLeft: 80,
+  marginRight: 80,
+  marginTop: 40,
+  marginBottom: 60,
+  inset: 20,
+  x: {
+    label: "Fiscal Year",
+    tickFormat: "d",
+    grid: true
+  },
+  y: {
+    label: "Inspection Count",
+    grid: true
+  },
+  marks: [
+    Plot.line(inspection_countries, {x: "Fiscal Year", y: "Domestic", stroke: "steelblue", strokeWidth: 2}),
+    Plot.line(inspection_countries, {x: "Fiscal Year", y: "Foreign", stroke: "orange", strokeWidth: 2}),
+    Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Domestic", stroke: "steelblue", fill: "white"}),
+    Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Foreign", stroke: "orange", fill: "white"}),
+    Plot.text(inspection_countries, {x: "Fiscal Year", y: "Domestic", text: d => d.Domestic, dy: -10, fontSize: 12}),
+    Plot.text(inspection_countries, {x: "Fiscal Year", y: "Foreign", text: d => d.Foreign, dy: 10, fontSize: 12}),
+    Plot.text(inspection_countries, {
+      x: "Fiscal Year",
+      y: "Domestic",
+      text: d => d["Fiscal Year"] === 2024 ? "Domestic" : "",
+      dx: 45,  // Increased horizontal offset
+      dy: -30,  // Added vertical offset to move label up
+      fontSize: 16,
+      fill: "steelblue",
+      fontWeight: "bold"
+    }),
+    Plot.text(inspection_countries, {
+      x: "Fiscal Year",
+      y: "Foreign",
+      text: d => d["Fiscal Year"] === 2024 ? "Foreign" : "",
+      dx: 45,  // Increased horizontal offset
+      dy: 20,  // Added vertical offset to move label down
+      fontSize: 16,
+      fill: "orange",
+      fontWeight: "bold"
+    })
+  ],
+  style: {
+    fontSize: 16,
+    fontFamily: "sans-serif",
+    backgroundColor: "#1e1e1e",
+    color: "white"
+  }
+})}
+</div>
+
+---
+
+## Inspections Classification by Fiscal Year
+
+<div class="card">
+  ${Plot.plot({
+  width: window.innerWidth - 40,
+  height: 600,
+  marginLeft: 80,
+  marginRight: 80,
+  marginTop: 40,
+  marginBottom: 60,
+  inset: 20,
+  x: {
+    label: "Fiscal Year",
+    tickFormat: "d",
+    grid: true
+  },
+  y: {
+    label: "Inspection Count",
+    grid: true
+  },
+  color: {
+    legend: true,
+    domain: ["No Action Indicated (NAI)", "Voluntary Action Indicated (VAI)", "Official Action Indicated (OAI)"],
+    range: ["green", "orange", "red"]
+  },
+  marks: [
+    Plot.line(class_fiscal, {x: "Fiscal Year", y: "Count", stroke: "Classification", strokeWidth: 2}),
+    Plot.dot(class_fiscal, {x: "Fiscal Year", y: "Count", stroke: "Classification", fill: "white"}),
+    Plot.text(class_fiscal, {x: "Fiscal Year", y: "Count", text: d => d.Count, dy: -10, fontSize: 14}),
+  ],
+  style: {
+    fontSize: 16,
+    fontFamily: "sans-serif",
+    backgroundColor: "#1e1e1e",
+    color: "white"
+  }
+})}
+</div>
+
+---
+
+## Inspections Classification by Product Type
+
+<div class="card">
+  ${Plot.plot({
+    width: window.innerWidth - 40,
+    height: 600,
+    marginLeft: 80,
+    marginRight: 120,
+    marginTop: 40,
+    marginBottom: 60,
+    x: {
+      label: "Product Type",
+      grid: true
+    },
+    y: {
+      label: "Total Inspections",
+      grid: true,
+    },
+    color: {
+      legend: true,
+      domain: ["No Action Indicated (NAI)", "Voluntary Action Indicated (VAI)", "Official Action Indicated (OAI)"],
+      range: ["green", "yellow", "red"]
+    },
+    marks: [
+      Plot.barY(class_product, Plot.groupX({
+        y: "sum"},
+        {x: "Product Type",
+        y: "Total",
+        fill: "Classification",
+        tip: true}
+      )),
+    ],
+    style: {
+      fontSize: 14,
+      fontFamily: "sans-serif",
+      backgroundColor: "#1e1e1e",
+      color: "white"
+    }
+  })}
+</div>
+
+---
+
+## Inspections Details
+
+<div class="card">
+  ${Inputs.table(fda_inspections, {
+    format: {
+      "FEI Number": (a) => a.toFixed(0),
+      "Fiscal Year": (b) => b.toFixed(0),
+      "Inspection ID": (c) => c.toFixed(0),
+      "Zip": (d) => d ? d.toLocaleString('en-US', {useGrouping: false}) : ''
+    }
+  })}
+</div>
