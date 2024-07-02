@@ -19,8 +19,6 @@ const fda_inspections = FileAttachment("fda_inspections.csv").csv({
 const inspection_countries = FileAttachment("data/inspection_countries.csv").csv({typed: true});
 const class_fiscal = FileAttachment("data/class_fiscal.csv").csv({typed: true});
 const class_product = FileAttachment("data/class_product.csv").csv({typed: true});
-const inspectionData = FileAttachment("data/inspections_state.csv").csv({typed: true})
-const us = FileAttachment("data/states-albers-10m.json").json();
 ```
 
 ```js
@@ -193,59 +191,98 @@ const color = Plot.scale({
 ## Map of Domestic Inspections
 
 ```js
+// Load the TopoJSON file
+const us = FileAttachment("data/states-albers-10m.json").json();
+```
+
+```js
+// Load the inspection data
+const inspectionData = FileAttachment("data/inspections_state.csv").csv({typed: true});
+```
+
+```js
 // Convert TopoJSON to GeoJSON
-const states = topojson.feature(us, us.objects.states)
+const statesGeoJSON = topojson.feature(us, us.objects.states);
+```
 
-// Create a more diverse color scale
-const color = d3.scaleQuantile()
-  .domain(inspectionData.map(d => d.Total))
-  .range(d3.schemeYlOrRd[9])
+```js
+// Create a map of state codes to inspection data
+const inspectionDataMap = new Map(inspectionData.map(d => [d.State_Code, d]));
+```
 
-// Create the map
+```js
+// Create a mapping of state names to state codes
+const stateNameToCode = Object.fromEntries(
+  inspectionData.map(d => [d.State.toLowerCase(), d.State_Code])
+);
+```
+
+```js
+// Create a mapping of state codes to state names
+const stateCodeToName = Object.fromEntries(
+  inspectionData.map(d => [d.State_Code, d.State])
+);
+```
+
+```js
 const chart = Plot.plot({
-  projection: "albers-usa",
+  projection: {
+    type: d3.identity,
+    domain: statesGeoJSON
+  },
   color: {
-    type: "quantile",
-    scheme: "YlOrRd",
-    n: 9
+    type: "quantize",
+    domain: [1, d3.max(inspectionData, d => d.Total)],
+    range: d3.schemeBlues[9],
+    unknown: "#cccccc",  // Light gray for states with no data
   },
   marks: [
-    Plot.geo(states, {
+    Plot.geo(statesGeoJSON, {
       fill: d => {
-        const stateData = inspectionData.find(s => s.State_Code === d.properties.code);
-        return stateData ? color(stateData.Total) : "#ccc";
+        const stateName = d.properties.name.toLowerCase();
+        const stateCode = stateNameToCode[stateName];
+        const stateData = stateCode ? inspectionDataMap.get(stateCode) : null;
+        return stateData ? stateData.Total : 0;
       },
-      stroke: "white",
-      strokeWidth: 0.5,
+      stroke: "black",
+      strokeWidth: 1,
       title: d => {
-        const stateData = inspectionData.find(s => s.State_Code === d.properties.code);
+        const stateName = d.properties.name.toLowerCase();
+        const stateCode = stateNameToCode[stateName];
+        const stateData = stateCode ? inspectionDataMap.get(stateCode) : null;
         return stateData 
           ? `${d.properties.name}: ${stateData.Total.toLocaleString()} inspections`
           : `${d.properties.name}: No data`;
       }
-    }),
-    Plot.text(states.features, {
-      text: d => d.properties.code,
-      fill: "black",
-      stroke: "white",
-      strokeWidth: 0.5,
-      fontSize: 8,
-      dx: d => d.properties.dx || 0,
-      dy: d => d.properties.dy || 0
     })
   ],
-  width: 975,
-  height: 610,
+  width: Math.min(975, window.innerWidth * 0.9),
+  height: Math.min(610, window.innerHeight * 0.9),
   style: {
-    backgroundColor: "white",
-    overflow: "visible"
+    color: "white",
+    font: "sans-serif",
+    fontSize: 14
   },
-  // Add a color legend
-  legend: true
-})
+  x: {axis: null},  // Hide x-axis
+  y: {axis: null},  // Hide y-axis
+  margin: 0
+});
 
-// Display the chart
-display(chart)
+// Log states that are in the inspection data but not rendered on the map
+const renderedStates = new Set(statesGeoJSON.features.map(f => f.properties.name.toLowerCase()));
+inspectionData.forEach(d => {
+  if (d.State_Code && !renderedStates.has(d.State.toLowerCase())) {
+    console.log(`State not rendered: ${d.State} (${d.State_Code})`);
+  }
+});
+
+// Create the container for the chart
+const container = html`<div style="display: flex; justify-content: center; 
+align-items: center; height: 50vh; background-color: #1e1e1e;">
+  ${chart}
+</div>`;
+
+display(container);
 ```
 
 ---
