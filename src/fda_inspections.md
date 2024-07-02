@@ -225,6 +225,24 @@ const stateCodeToName = Object.fromEntries(
 ```
 
 ```js
+// Function to calculate responsive dimensions
+function getResponsiveDimensions() {
+  const aspectRatio = 975 / 610; // Original width / height
+  const maxWidth = Math.min(975, window.innerWidth * 0.8); // Using 80% of viewport width
+  const maxHeight = Math.min(610, window.innerHeight * 0.8); // Using 80% of viewport height
+  
+  if (maxWidth / aspectRatio <= maxHeight) {
+    return { width: maxWidth, height: maxWidth / aspectRatio };
+  } else {
+    return { width: maxHeight * aspectRatio, height: maxHeight };
+  }
+}
+
+// Use the responsive dimensions in the chart
+const { width, height } = getResponsiveDimensions();
+```
+
+```js
 const chart = Plot.plot({
   projection: {
     type: d3.identity,
@@ -256,8 +274,8 @@ const chart = Plot.plot({
       }
     })
   ],
-  width: Math.min(975, window.innerWidth * 0.9),
-  height: Math.min(610, window.innerHeight * 0.9),
+  width,
+  height,
   style: {
     color: "white",
     font: "sans-serif",
@@ -277,10 +295,16 @@ inspectionData.forEach(d => {
 });
 
 // Create the container for the chart
-const container = html`<div style="display: flex; justify-content: center; 
-align-items: center; height: 50vh; background-color: #1e1e1e;">
+const container = html`<div class="card" style="display: flex; justify-content: center; 
+align-items: center; height: 80vh; background-color: #1e1e1e;">
   ${chart}
 </div>`;
+
+// Add a resize listener to update the chart when the window size changes
+window.addEventListener('resize', () => {
+  const { width, height } = getResponsiveDimensions();
+  chart.update({width, height});
+});
 
 display(container);
 ```
