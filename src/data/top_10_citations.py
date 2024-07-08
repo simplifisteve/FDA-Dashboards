@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 
 # Import the entire fda_citations dataset
-fda_citations = pd.DataFrame(pd.read_csv("src/fda_citations.csv"))
+fda_citations = pd.DataFrame(pd.read_csv("data/fda_citations.csv"))
 
 # Filter dataset to only include: Biologics, Drugs, Devices
 fda_citations = fda_citations[fda_citations["Program Area"].isin(["Biologics", "Drugs", "Devices"])]

@@ -3,7 +3,7 @@ import sys
 import us
 
 # Import the entire fda_inspections dataset
-fda_inspections = pd.DataFrame(pd.read_csv("src/fda_inspections.csv"))
+fda_inspections = pd.DataFrame(pd.read_csv("data/fda_inspections.csv"))
 
 # Filter dataset to include: Biologics, Drugs, Devices
 fda_inspections = fda_inspections[fda_inspections["Product Type"].isin(["Biologics", "Drugs", "Devices"])]

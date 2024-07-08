@@ -4,15 +4,22 @@ title: FDA Citations
 toc: false
 ---
 
+# FDA Citations
+
 <!-- Load and transform the data -->
 
 ```js
-const fda_citations = FileAttachment("fda_citations.csv").csv({typed: true});
+const fda_citations = FileAttachment("data/fda_citations.csv").csv({typed: true});
 const top_10_citations = FileAttachment("data/top_10_citations_table.csv").csv({typed: true});
 ```
 <div class="grid grid-cols-3">
   <div class="card"><h1>Total Citations</h1>87,205</div>
+  <div class="card">
+    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types. Fiscal Years: 2009 - 2024.
+  </div>
 </div>
+
+---
 
 <div class="card">
   <h1>Top 10 Citations</h1>

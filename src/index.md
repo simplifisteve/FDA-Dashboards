@@ -48,7 +48,7 @@ toc: false
 
 <div class="hero">
   <h1>FDA Dashboards</h1>
-  <h2>Only showing data for Biologics, Drugs, and Devices. Fiscal Years 2009 -  2024.</h2>
+  <h2>Only showing data for Biologics, Drugs, and Devices.</h2>
   <a href="https://datadashboard.fda.gov/ora/cd/inspections.htm">View original source<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
 </div>
 
@@ -67,18 +67,22 @@ Here are the original data tables from the FDA website:
 <!-- Load and transform the data -->
 
 ```js
-const fda_citations = FileAttachment("fda_citations.csv").csv({typed: true});
-const fda_483s = FileAttachment("fda_483s.csv").csv({typed: true});
+const fda_citations = FileAttachment("data/fda_citations.csv").csv({typed: true});
+const fda_483s = FileAttachment("data/fda_483s.csv").csv({typed: true});
+const fda_recalls = FileAttachment("data/fda_recalls.csv").csv({typed: true});
+const fda_compliance_actions = FileAttachment("data/fda_compliance_actions.csv").csv({typed: true});
 ```
 
 ```js
-const fda_inspections = FileAttachment("fda_inspections.csv").csv({
+const fda_inspections = FileAttachment("data/fda_inspections.csv").csv({
   typed: true,
   parse: {
     "Zip": d => d ? parseInt(d.replace(/,/g, '')) : null
   }
 });
 ```
+
+---
 
 ### Inspections Details
 <div class="card">
@@ -92,6 +96,8 @@ const fda_inspections = FileAttachment("fda_inspections.csv").csv({
   })}
 </div>
 
+---
+
 ### Inspections Citations Details
 <div class="card">
   ${Inputs.table(fda_citations, {
@@ -102,6 +108,8 @@ const fda_inspections = FileAttachment("fda_inspections.csv").csv({
   })}
 </div>
 
+---
+
 ### Published 483s
 <div class="card">
   ${Inputs.table(fda_483s, {
@@ -109,5 +117,29 @@ const fda_inspections = FileAttachment("fda_inspections.csv").csv({
       "Record ID": (a) => a.toFixed(0),
       "FEI Number": (b) => b.toFixed(0),
     }  
+  })}
+</div>
+
+---
+
+### Recalls Details
+<div class="card">
+  ${Inputs.table(fda_recalls, {
+    format: {
+      "FEI Number": (a) => a != null ? a.toString().replace(/,/g, '') : '',
+      "Product ID": (b) => b != null ? b.toString().replace(/,/g, '') : '',
+      "Event ID": (c) => c != null ? c.toString().replace(/,/g, '') : '',
+    }
+  })}
+</div>
+
+---
+
+### Compliance Actions Details
+<div class="card">
+  ${Inputs.table(fda_compliance_actions, {
+    format: {
+      "FEI Number": (a) => a != null ? a.toString().replace(/,/g, '') : '',
+    }
   })}
 </div>
