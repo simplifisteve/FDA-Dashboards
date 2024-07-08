@@ -1,6 +1,6 @@
-# Hello Framework
+# Re-Q Dashboard
 
-This is an [Observable Framework](https://observablehq.com/framework) project. To start the local preview server, run:
+This is an [Observable Framework](https://observablehq.com/framework) project. To start a local preview server, open your Terminal and run:
 
 ```
 npm run dev
@@ -8,7 +8,7 @@ npm run dev
 
 Then visit <http://localhost:3000> to preview your project.
 
-For more, see <https://observablehq.com/framework/getting-started>.
+For more info, see <https://observablehq.com/framework/getting-started>.
 
 ## Project structure
 
