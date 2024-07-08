@@ -5,7 +5,7 @@ import sys
 fda_recalls = pd.DataFrame(pd.read_csv("src/data/fda_recalls.csv"))
 
 # Recalled Products by Product Type
-recalls_product_types = fda_recalls.groupby("Product Type").size().reset_index()
+recalls_product_types = fda_recalls.groupby("Product Type")["Product ID"].nunique().reset_index()
 recalls_product_types.columns = ["Product Type", "Total"]
 
 # Write to CSV

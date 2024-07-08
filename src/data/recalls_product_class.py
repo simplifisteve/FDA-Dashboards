@@ -8,7 +8,7 @@ fda_recalls = pd.DataFrame(pd.read_csv("src/data/fda_recalls.csv"))
 fda_recalls['Fiscal Year'] = pd.to_datetime(fda_recalls['Center Classification Date']).dt.year
 
 # Recalled Products by Classification
-recalls_product_class = fda_recalls.groupby(["Fiscal Year", "Product Classification"]).size().reset_index()
+recalls_product_class = fda_recalls.groupby(["Fiscal Year", "Product Classification"])["Product ID"].nunique().reset_index()
 recalls_product_class.columns = ["Fiscal Year", "Product Classification", "Total"]
 
 # Write to CSV
