@@ -9,6 +9,7 @@ toc: false
 <!-- Load and transform the data -->
 
 ```js
+const fda_recalls = FileAttachment("data/fda_recalls.csv").csv({typed: true});
 const recalls_product_fiscal = FileAttachment("data/recalls_product_fiscal.csv").csv({typed: true});
 const recalls_product_types = FileAttachment("data/recalls_product_types.csv").csv({typed: true});
 const recalls_product_class = FileAttachment("data/recalls_product_class.csv").csv({typed: true});
@@ -333,4 +334,16 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
 })}
 </div>
 
+---
+
+## Recalls Details
+<div class="card">
+  ${Inputs.table(fda_recalls, {
+    format: {
+      "FEI Number": (a) => a != null ? a.toString().replace(/,/g, '') : '',
+      "Product ID": (b) => b != null ? b.toString().replace(/,/g, '') : '',
+      "Event ID": (c) => c != null ? c.toString().replace(/,/g, '') : '',
+    }
+  })}
+</div>
 
