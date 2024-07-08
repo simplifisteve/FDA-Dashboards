@@ -89,7 +89,7 @@ const stateCodeToName = Object.fromEntries(
 function getResponsiveDimensions() {
   const aspectRatio = 975 / 610; // Original width / height
   const maxWidth = Math.min(975, window.innerWidth * 0.8); // Using 80% of viewport width
-  const maxHeight = Math.min(610, window.innerHeight * 0.8); // Using 80% of viewport height
+  const maxHeight = Math.min(610, window.innerHeight * 1.0); // Using 100% of viewport height
   
   if (maxWidth / aspectRatio <= maxHeight) {
     return { width: maxWidth, height: maxWidth / aspectRatio };
@@ -160,7 +160,7 @@ inspectionData.forEach(d => {
 
 // Create the container for the chart
 const container = html`<div class="card" style="display: flex; justify-content: center; 
-align-items: center; height: 80vh; background-color: #1e1e1e;">
+align-items: center; height: 100vh; background-color: #1e1e1e;">
   ${chart}
 </div>`;
 

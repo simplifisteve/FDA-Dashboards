@@ -183,7 +183,7 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
     width: window.innerWidth - 40,
     height: 500,
     marginLeft: 120,
-    marginRight: 80,
+    marginRight: 60,
     marginTop: 40,
     marginBottom: 60,
     x: {

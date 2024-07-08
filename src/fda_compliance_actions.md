@@ -16,7 +16,7 @@ const compliance_products = FileAttachment("data/compliance_products.csv").csv({
 ```
 
 <div class="grid grid-cols-3">
-  <div class="card"><h1>Total Compliance Actions</h1>50,000</div>
+  <div class="card"><h1>Total Compliance Actions</h1>4,233</div>
   <div class="card">
     <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types. Fiscal Years: 2008 - 2024.
   </div>
