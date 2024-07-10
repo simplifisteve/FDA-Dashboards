@@ -16,12 +16,152 @@ const compliance_products = FileAttachment("data/compliance_products.csv").csv({
 ```
 
 <div class="grid grid-cols-3">
-  <div class="card"><h1>Total Compliance Actions</h1>4,233</div>
+  <div class="card"><h1>Global Compliance Actions</h1>4,233</div>
+  <div class="card"><h1>US Compliance Actions</h1>2,992 or 70.7% of total</div>
   <div class="card">
-    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types. Fiscal Years: 2008 - 2024.
+    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types and Fiscal Years 2008 to 2024.
   </div>
 </div>
 
+---
+
+## Global Map of Compliance Actions
+
+```js
+// Load the TopoJSON file
+const world = FileAttachment("data/countries-110m.json").json();
+```
+
+```js
+// Load the compliance action data
+const complianceData = FileAttachment("data/compliance_countries.csv").csv({typed: true});
+```
+
+```js
+// Convert TopoJSON to GeoJSON
+const countriesGeoJSON = topojson.feature(world, world.objects.countries);
+```
+
+```js
+// Create a map of ISO codes to compliance data
+const complianceDataMap = new Map(complianceData.map(d => [d.ISO_Code, d]));
+```
+
+<!-- ```js
+// Console.log to catch errors
+console.log(complianceData.slice(0, 67));
+``` -->
+
+```js
+function validateCoordinates(country, lon, lat) {
+  if (lon === null || lat === null) return null;
+  
+  // Correct incorrect coordinates from CSV
+  if (country === "Thailand") lon = 100.992541;
+  if (country === "Jordan") {
+    lat = 31.24;
+    lon = 36.51;
+  }
+  if (country === "Armenia") {
+    lat = 40.0691;
+    lon = 45.0382;
+  }
+  
+  // Ensure longitude is between -180 and 180
+  lon = ((lon + 180) % 360) - 180;
+  
+  // Ensure latitude is between -90 and 90
+  lat = Math.max(-90, Math.min(90, lat));
+  
+  return [lon, lat];
+}
+```
+
+```js
+// Function to calculate responsive dimensions
+function getResponsiveDimensions() {
+  const aspectRatio = 975 / 610;
+  const maxWidth = Math.min(975, window.innerWidth * 0.8);
+  const maxHeight = Math.min(610, window.innerHeight * 0.8);
+  
+  if (maxWidth / aspectRatio <= maxHeight) {
+    return { width: maxWidth, height: maxWidth / aspectRatio };
+  } else {
+    return { width: maxHeight * aspectRatio, height: maxHeight };
+  }
+}
+
+// Use the responsive dimensions in the chart
+const { width, height } = getResponsiveDimensions();
+```
+
+```js
+const chart = Plot.plot({
+  projection: "equirectangular", // to switch to sphere use {type: "orthographic", rotate: [20, -30]},
+  color: {
+    type: "quantize",
+    domain: [1, d3.max(complianceData, d => d.Count)],
+    range: d3.schemeBlues[7],
+    legend: true,
+    label: "Number of Compliance Actions",
+    tickFormat: d => d3.format(",")(Math.round(d))
+  },
+  marks: [
+    Plot.geo(countriesGeoJSON, {
+      fill: d => {
+        const countryData = complianceDataMap.get(d.id);
+        return countryData ? countryData.Count : 0;
+      },
+      stroke: "black", 
+      strokeWidth: 1.0,
+    }),
+    // Plot.sphere(),
+    Plot.dot(complianceData.filter(d => d.longitude != null && d.latitude != null), {
+      x: d => {
+      const coords = validateCoordinates(d.Country, +d.longitude, +d.latitude);
+      return coords ? coords[0] : null;
+    },
+    y: d => {
+      const coords = validateCoordinates(d.Country, +d.longitude, +d.latitude);
+      return coords ? coords[1] : null;
+    },
+    r: d => Math.sqrt(d.Count) * 0.5,
+    fill: d => d.Count,
+    fillOpacity: 1.0,
+    stroke: "black",
+    strokeWidth: 1.0,
+    title: d => `${d.Country}: ${d.Count.toLocaleString()} compliance actions (${d.Percentage.toFixed(1)}% of total)`
+  })
+  ],
+  width,
+  height,
+  marginRight: 0,
+  marginLeft: 0,
+  style: {
+    backgroundColor: "#1e1e1e",
+    color: "white",
+    fontFamily: "sans-serif",
+    fontSize: 18
+  },
+  x: {axis: null},
+  y: {axis: null},
+  margin: 0
+});
+
+// Create the container for the chart
+const container = html`<div class="card" style="display: flex; justify-content: center; 
+align-items: center; height: 80vh; background-color: #1e1e1e;">
+  ${chart}
+</div>`;
+
+// Add a resize listener to update the chart when the window size changes
+window.addEventListener('resize', () => {
+  const { width, height } = getResponsiveDimensions();
+  chart.update({width, height});
+});
+
+display(container);
+```
 ---
 
 ## Warning Letters by Fiscal Year & Product Type
@@ -170,10 +310,6 @@ const compliance_products = FileAttachment("data/compliance_products.csv").csv({
   }
 })}
 </div>
-
----
-
-## Map of Compliance Actions
 
 ---
 

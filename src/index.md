@@ -49,12 +49,14 @@ toc: false
 <div class="hero">
   <h1>FDA Dashboards</h1>
   <h2>Only showing data for Biologics, Drugs, and Devices.</h2>
-  <a href="https://datadashboard.fda.gov/ora/cd/inspections.htm">View original source<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
+  <a href="https://datadashboard.fda.gov/ora/cd/index.htm">View original source<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
 </div>
 
 <div class="grid grid-cols-3">
   <div class="card"><h1>Total Inspections</h1>108,769</div>
   <div class="card"><h1>Total Citations</h1>87,205</div>
+  <div class="card"><h1>Total Recalls</h1>61,210</div>
+  <div class="card"><h1>Total Compliance Actions</h1>4,233</div>
   <div class="card"><h1>Published 483s</h1>1,727</div>
 </div>
 
@@ -62,7 +64,7 @@ toc: false
 
 ## Data Tables
 
-Here are the original data tables from the FDA website:
+Below are the original FDA data tables (Biologics, Drugs, and Devices):
 
 <!-- Load and transform the data -->
 
@@ -81,8 +83,6 @@ const fda_inspections = FileAttachment("data/fda_inspections.csv").csv({
   }
 });
 ```
-
----
 
 ### Inspections Details
 <div class="card">

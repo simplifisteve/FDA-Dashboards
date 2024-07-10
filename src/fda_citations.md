@@ -12,10 +12,10 @@ toc: false
 const fda_citations = FileAttachment("data/fda_citations.csv").csv({typed: true});
 const top_10_citations = FileAttachment("data/top_10_citations_table.csv").csv({typed: true});
 ```
-<div class="grid grid-cols-3">
+<div class="grid grid-cols-4">
   <div class="card"><h1>Total Citations</h1>87,205</div>
   <div class="card">
-    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types. Fiscal Years: 2009 - 2024.
+    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types and Fiscal Years 2009 to 2024.
   </div>
 </div>
 

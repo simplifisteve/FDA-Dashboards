@@ -18,10 +18,10 @@ const recalls_events_types = FileAttachment("data/recalls_events_types.csv").csv
 const recalls_events_status = FileAttachment("data/recalls_events_status.csv").csv({typed: true});
 ```
 
-<div class="grid grid-cols-3">
+<div class="grid grid-cols-4">
   <div class="card"><h1>Total Recalls</h1>61,210</div>
   <div class="card">
-    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types. Fiscal Years: 2012 - 2024.
+    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types and Fiscal Years 2012 to 2024.
   </div>
 </div>
 

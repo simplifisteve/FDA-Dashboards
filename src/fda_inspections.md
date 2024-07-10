@@ -32,7 +32,7 @@ const color = Plot.scale({
 ```
 <!---Summary Cards--->
 
-<div class="grid grid-cols-3">
+<div class="grid grid-cols-4">
   <div class="card">
     <h2>United States 🇺🇸</h2>
     <span class="big">${fda_inspections.filter((d) => d["Country/Area"] === "United States").length.toLocaleString("en-US")}</span>
@@ -42,7 +42,7 @@ const color = Plot.scale({
     <span class="big">${fda_inspections.filter((d) => d["Country/Area"] !== "United States").length.toLocaleString("en-US")}</span>
   </div>
   <div class="card">
-    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types. Fiscal Years: 2009 - 2024.
+    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types and Fiscal Years 2009 to 2024.
   </div>
 </div>
 
