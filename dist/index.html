@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Home</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+import {registerFile} from "./_observablehq/stdlib.js";
+
+registerFile("./fda_483s.csv", {"name":"./fda_483s.csv","mimeType":"text/csv","path":"./_file/fda_483s.ec697a8a.csv","lastModified":1719337403304});
+registerFile("./fda_citations.csv", {"name":"./fda_citations.csv","mimeType":"text/csv","path":"./_file/fda_citations.42e1f436.csv","lastModified":1719302099996});
+registerFile("./fda_inspections.csv", {"name":"./fda_inspections.csv","mimeType":"text/csv","path":"./_file/fda_inspections.66aca9fd.csv","lastModified":1719302577791});
+
+define({id: "6b5998b0", inputs: ["FileAttachment"], outputs: ["fda_inspections","fda_citations","fda_483s"], body: (FileAttachment) => {
+const fda_inspections = FileAttachment("./fda_inspections.csv").csv({typed: true});
+const fda_citations = FileAttachment("./fda_citations.csv").csv({typed: true});
+const fda_483s = FileAttachment("./fda_483s.csv").csv({typed: true});
+return {fda_inspections,fda_citations,fda_483s};
+}});
+
+define({id: "45d8555a", mode: "inline", inputs: ["Inputs","fda_inspections","display"], body: async (Inputs,fda_inspections,display) => {
+display(await(
+Inputs.table(fda_inspections)
+))
+}});
+
+define({id: "38e10d85", mode: "inline", inputs: ["Inputs","fda_citations","display"], body: async (Inputs,fda_citations,display) => {
+display(await(
+Inputs.table(fda_citations)
+))
+}});
+
+define({id: "5ec93718", mode: "inline", inputs: ["Inputs","fda_483s","display"], body: async (Inputs,fda_483s,display) => {
+display(await(
+Inputs.table(fda_483s)
+))
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Home</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./fda_citations">FDA Citations</a></li>
+    <li class="observablehq-link"><a href="./fda_inspections">FDA Inspections</a></li>
+    <li class="observablehq-link"><a href="./fda_recalls">FDA Recalls</a></li>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<style>
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--sans-serif);
+  margin: 4rem 0 8rem;
+  text-wrap: balance;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 2rem 0;
+  max-width: none;
+  font-size: 14vw;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h2 {
+  margin: 0;
+  max-width: 34em;
+  font-size: 20px;
+  font-style: initial;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--theme-foreground-muted);
+}
+
+@media (min-width: 640px) {
+  .hero h1 {
+    font-size: 90px;
+  }
+}
+
+</style>
+<div class="hero">
+  <h1>FDA Dashboards</h1>
+  <h2>Only showing data for Biologics, Drugs, and Devices.</h2>
+  <a href="https://datadashboard.fda.gov/ora/cd/inspections.htm" target="_blank" rel="noopener noreferrer">View original source<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
+</div>
+<div class="grid grid-cols-3">
+  <div class="card"><h1>Total Inspections</h1>108,769</div>
+  <div class="card"><h1>Total Citations</h1>87,205</div>
+  <div class="card"><h1>Published 483s</h1>1,727</div>
+</div>
+<hr>
+<h2 id="data-tables" tabindex="-1"><a class="observablehq-header-anchor" href="#data-tables">Data Tables</a></h2>
+<p>Here are the original data tables from the FDA website:</p>
+<!-- Load and transform the data -->
+<div class="observablehq observablehq--block"><!--:6b5998b0:--></div>
+<h3 id="inspections-details" tabindex="-1"><a class="observablehq-header-anchor" href="#inspections-details">Inspections Details</a></h3>
+<div class="card">
+  <observablehq-loading></observablehq-loading><!--:45d8555a:-->
+</div>
+<h3 id="inspections-citations-details" tabindex="-1"><a class="observablehq-header-anchor" href="#inspections-citations-details">Inspections Citations Details</a></h3>
+<div class="card">
+  <observablehq-loading></observablehq-loading><!--:38e10d85:-->
+</div>
+<h3 id="published-483s" tabindex="-1"><a class="observablehq-header-anchor" href="#published-483s">Published 483s</a></h3>
+<div class="card">
+  <observablehq-loading></observablehq-loading><!--:5ec93718:-->
+</div></main>
+<footer id="observablehq-footer">
+<nav><a rel="next" href="./fda_citations"><span>FDA Citations</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2024-06-26T00:49:47">Jun 26, 2024</a>.</div>
+</footer>
+</div>
