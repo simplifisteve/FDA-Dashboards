@@ -1,4 +1,4 @@
-# Observable SV
+# Re-Q Dashboards
 
 This is an [Observable Framework](https://observablehq.com/framework) project. To start a local preview server, run:
 
