@@ -1,7 +1,7 @@
 ---
 theme: dashboard
 title: FDA Inspections
-toc: false
+toc: true
 ---
 
 # FDA Inspections
@@ -32,7 +32,7 @@ const color = Plot.scale({
 ```
 <!---Summary Cards--->
 
-<div class="grid grid-cols-4">
+<div class="grid grid-cols-3">
   <div class="card">
     <h2>United States 🇺🇸</h2>
     <span class="big">${fda_inspections.filter((d) => d["Country/Area"] === "United States").length.toLocaleString("en-US")}</span>
@@ -199,7 +199,7 @@ display(container);
     Plot.line(inspection_countries, {
       x: "Fiscal Year", 
       y: "Domestic", 
-      stroke: "steelblue", 
+      stroke: "#004E7C", 
       strokeWidth: 2, 
       tip: {
         format: {
@@ -211,7 +211,7 @@ display(container);
     Plot.line(inspection_countries, {
       x: "Fiscal Year", 
       y: "Foreign", 
-      stroke: "orange", 
+      stroke: "#F45D01", 
       strokeWidth: 2, 
       tip: {
         format: {
@@ -220,8 +220,8 @@ display(container);
         }
       }
     }),
-    Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Domestic", stroke: "steelblue", fill: "white"}),
-    Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Foreign", stroke: "orange", fill: "white"}),
+    Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Domestic", stroke: "#004E7C", fill: "white"}),
+    Plot.dot(inspection_countries, {x: "Fiscal Year", y: "Foreign", stroke: "#F45D01", fill: "white"}),
     Plot.text(inspection_countries, {x: "Fiscal Year", y: "Domestic", text: d => d.Domestic, dy: -10, fontSize: 12}),
     Plot.text(inspection_countries, {x: "Fiscal Year", y: "Foreign", text: d => d.Foreign, dy: 10, fontSize: 12}),
     Plot.text(inspection_countries, {
@@ -231,7 +231,7 @@ display(container);
       dx: 45,
       dy: -30,
       fontSize: 16,
-      fill: "steelblue",
+      fill: "#004E7C",
       fontWeight: "bold"
     }),
     Plot.text(inspection_countries, {
@@ -241,7 +241,7 @@ display(container);
       dx: 45,
       dy: 20,
       fontSize: 16,
-      fill: "orange",
+      fill: "#F45D01",
       fontWeight: "bold"
     })
   ],
@@ -279,7 +279,7 @@ display(container);
   color: {
     legend: true,
     domain: ["No Action Indicated (NAI)", "Voluntary Action Indicated (VAI)", "Official Action Indicated (OAI)"],
-    range: ["green", "orange", "red"]
+    range: ["#23CE6B", "#F45D01", "#C92118"]
   },
   marks: [
     Plot.line(class_fiscal, {
@@ -312,36 +312,36 @@ display(container);
 
 <div class="card">
   ${Plot.plot({
-    width: window.innerWidth - 40,
-    height: 600,
-    marginLeft: 80,
-    marginRight: 120,
+    width: window.innerWidth - 35,
+    height: 500,
+    marginLeft: 100,
+    marginRight: 80,
     marginTop: 40,
     marginBottom: 60,
     x: {
-      label: "Product Type",
+      label: "Total Inspections",
       grid: true
     },
     y: {
-      label: "Total Inspections",
+      label: null,
       grid: true,
     },
     color: {
       legend: true,
       domain: ["No Action Indicated (NAI)", "Voluntary Action Indicated (VAI)", "Official Action Indicated (OAI)"],
-      range: ["green", "yellow", "red"]
+      range: ["#23CE6B", "#FEC900", "#C92118"]
     },
     marks: [
-      Plot.barY(class_product, Plot.groupX({
-        y: "sum"},
-        {x: "Product Type",
-        y: "Total",
+      Plot.barX(class_product, Plot.groupY({
+        x: "sum"},
+        {y: "Product Type",
+        x: "Total",
         fill: "Classification",
         tip: true}
       )),
     ],
     style: {
-      fontSize: 14,
+      fontSize: 16,
       fontFamily: "sans-serif",
       backgroundColor: "#1e1e1e",
       color: "white"

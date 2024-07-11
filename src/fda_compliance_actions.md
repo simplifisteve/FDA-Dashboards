@@ -1,7 +1,7 @@
 ---
 title: FDA Compliance Actions
 theme: dashboard
-toc: false
+toc: true
 ---
 
 # FDA Compliance Actions
@@ -53,6 +53,7 @@ console.log(complianceData.slice(0, 67));
 ``` -->
 
 ```js
+// Function to validate coordinates
 function validateCoordinates(country, lon, lat) {
   if (lon === null || lat === null) return null;
   
@@ -97,7 +98,7 @@ const { width, height } = getResponsiveDimensions();
 
 ```js
 const chart = Plot.plot({
-  projection: "equirectangular", // to switch to sphere use {type: "orthographic", rotate: [20, -30]},
+  projection: d3.geoNaturalEarth1(), // {type: "orthographic", rotate: [45, -5]},
   color: {
     type: "quantize",
     domain: [1, d3.max(complianceData, d => d.Count)],
@@ -145,7 +146,6 @@ const chart = Plot.plot({
   },
   x: {axis: null},
   y: {axis: null},
-  margin: 0
 });
 
 // Create the container for the chart
@@ -187,7 +187,7 @@ display(container);
   color: {
     legend: true,
     domain: ["Biologics", "Drugs", "Devices"],
-    range: ["green", "orange", "blue"]
+    range: ["#23CE6B", "#F45D01", "#004E7C"]
   },
   marks: [
     Plot.barY(warning_letters_fiscal, {
@@ -237,7 +237,7 @@ display(container);
   color: {
     legend: true,
     domain: ["Injunction", "Seizure"],
-    range: ["blue", "green"]
+    range: ["#004e7c", "#23CE6B"]
   },
   marks: [
     Plot.barY(compliance_fiscal, {
@@ -268,9 +268,9 @@ display(container);
 
 <div class="card">
   ${Plot.plot({
-  width: window.innerWidth - 40,
-  height: 400,
-  marginLeft: 120,
+  width: window.innerWidth - 35,
+  height: 450,
+  marginLeft: 100,
   marginRight: 80,
   marginTop: 40,
   marginBottom: 60,
@@ -279,13 +279,13 @@ display(container);
     grid: true
   },
   y: {
-    label: "Product Type",
+    label: null,
     domain: compliance_products.map(d => d["Product Type"]).filter((v, i, a) => a.indexOf(v) === i)
   },
   color: {
     legend: true,
     domain: ["Injunction", "Seizure"],
-    range: ["blue", "green"]
+    range: ["#004E7C", "#23CE6B"]
   },
   marks: [
     Plot.barX(compliance_products, {
@@ -314,6 +314,7 @@ display(container);
 ---
 
 ## Compliance Actions Details
+
 <div class="card">
   ${Inputs.table(fda_compliance_actions, {
     format: {

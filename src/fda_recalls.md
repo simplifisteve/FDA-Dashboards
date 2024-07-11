@@ -1,7 +1,7 @@
 ---
 title: FDA Recalls
 theme: dashboard
-toc: false
+toc: true
 ---
 
 # FDA Recalls
@@ -50,7 +50,7 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
   color: {
     legend: true,
     domain: ["Biologics", "Drugs", "Devices"],
-    range: ["green", "orange", "red"]
+    range: ["#23CE6B", "#F45D01", "#004E7C"]
   },
   marks: [
     Plot.barY(recalls_product_fiscal, {
@@ -82,38 +82,33 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
 <div class="card">
   ${Plot.plot({
   width: window.innerWidth - 40,
-  height: 600,
-  marginLeft: 80,
+  height: 450,
+  marginLeft: 100,
   marginRight: 80,
   marginTop: 40,
   marginBottom: 60,
   inset: 20,
   x: {
-    label: "Product Type",
+    label: "Recalled Products",
+    grid: true,
     axis: "bottom"
   },
   y: {
-    label: "Recalled Products",
+    label: null,
     grid: true
   },
   color: {
     legend: true,
     domain: ["Biologics", "Drugs", "Devices"],
-    range: ["green", "orange", "red"]
+    range: ["#23CE6B", "#F45D01", "#004E7C"]
   },
   marks: [
-    Plot.barY(recalls_product_types, {
-      x: "Product Type", 
-      y: "Total", 
+    Plot.barX(recalls_product_types, {
+      x: "Total", 
+      y: "Product Type", 
       fill: "Product Type", 
-      tip: {
-        format: {
-          x: x => x,
-          y: y => y.toLocaleString()
-        }
-      }
+      tip: true
     }),
-    Plot.ruleY([0])
   ],
   style: {
     fontSize: 16,
@@ -149,7 +144,7 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
   color: {
     legend: true,
     domain: ["Class I", "Class II", "Class III"],
-    range: ["green", "blue", "orange"]
+    range: ["#23CE6B", "#004E7C", "#F45D01"]
   },
   marks: [
     Plot.barY(recalls_product_class, {
@@ -193,6 +188,7 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
     y: {
       label: null,
       domain: recalls_events_status.map(d => d.Status),
+      grid: true,
       padding: 0.2
     },
     color: {
@@ -257,7 +253,7 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
   color: {
     legend: true,
     domain: ["Class I", "Class II", "Class III"],
-    range: ["green", "orange", "blue"]
+    range: ["#23CE6B", "#F45D01", "#004E7C"]
   },
   marks: [
     Plot.barY(recalls_events_fiscal, {
@@ -289,41 +285,34 @@ const recalls_events_status = FileAttachment("data/recalls_events_status.csv").c
 <div class="card">
   ${Plot.plot({
   width: window.innerWidth - 40,
-  height: 600,
+  height: 500,
   marginLeft: 80,
   marginRight: 80,
   marginTop: 40,
   marginBottom: 60,
   inset: 20,
   x: {
-    label: "Product Type",
+    label: "Recall Events",
     axis: "bottom"
   },
   y: {
-    label: "Recall Events",
+    label: null,
     grid: true
   },
   color: {
     legend: true,
     domain: ["Class I", "Class II", "Class III"],
-    range: ["green", "orange", "blue"]
+    range: ["#23CE6B", "#F45D01", "#004E7C"]
   },
   marks: [
-    Plot.barY(recalls_events_types, {
-      x: "Product Type", 
-      y: "Total", 
+    Plot.barX(recalls_events_types, {
+      x: "Total", 
+      y: "Product Type", 
       fill: "Event Classification",
       stack: true,
       sort: {x: "y", reverse: true},
-      tip: {
-        format: {
-          x: x => x,
-          y: y => y.toLocaleString(),
-          fill: f => `${f}: `
-        }
-      }
+      tip: true
     }),
-    Plot.ruleY([0])
   ],
   style: {
     fontSize: 16,

@@ -110,18 +110,6 @@ const fda_inspections = FileAttachment("data/fda_inspections.csv").csv({
 
 ---
 
-### Published 483s
-<div class="card">
-  ${Inputs.table(fda_483s, {
-    format: {
-      "Record ID": (a) => a.toFixed(0),
-      "FEI Number": (b) => b.toFixed(0),
-    }  
-  })}
-</div>
-
----
-
 ### Recalls Details
 <div class="card">
   ${Inputs.table(fda_recalls, {
@@ -141,5 +129,17 @@ const fda_inspections = FileAttachment("data/fda_inspections.csv").csv({
     format: {
       "FEI Number": (a) => a != null ? a.toString().replace(/,/g, '') : '',
     }
+  })}
+</div>
+
+---
+
+### Published 483s
+<div class="card">
+  ${Inputs.table(fda_483s, {
+    format: {
+      "Record ID": (a) => a.toFixed(0),
+      "FEI Number": (b) => b.toFixed(0),
+    }  
   })}
 </div>

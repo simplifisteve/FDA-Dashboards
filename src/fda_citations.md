@@ -1,7 +1,7 @@
 ---
 theme: dashboard
 title: FDA Citations
-toc: false
+toc: true
 ---
 
 # FDA Citations
@@ -20,31 +20,30 @@ const top_10_citations = FileAttachment("data/top_10_citations_table.csv").csv({
 </div>
 
 ---
-
+## Top 10 Citations
 <div class="card">
-  <h1>Top 10 Citations</h1>
   ${Plot.plot({
-  width: window.innerWidth - 20,
+  width: window.innerWidth - 40,
   height: 900,
   marginLeft: 400,
   marginRight: 100,
-  marginBottom: 50,
+  marginBottom: 60,
   x: {
     label: "Total Citations",
     tickFormat: d => d.toLocaleString(),
     grid: true,
-    fontSize: 15
+    fontSize: 16
   },
   y: {
     label: null,
-    fontSize: 15
+    fontSize: 16
   },
   marks: [
     Plot.barX(top_10_citations, {
       x: "Total",
       y: "Short Description",
       sort: {y: "-x"},
-      fill: "steelblue",
+      fill: "#004e7c",
       tip: true
     }),
     Plot.text(top_10_citations, {
