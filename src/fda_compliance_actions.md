@@ -319,6 +319,7 @@ display(container);
   ${Inputs.table(fda_compliance_actions, {
     format: {
       "FEI Number": (a) => a != null ? a.toString().replace(/,/g, '') : '',
+      "Case/Injunction ID": (b) => b != null ? b.toString().replace(/,/g, '') : '',
     }
   })}
 </div>
