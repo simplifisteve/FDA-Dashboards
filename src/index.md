@@ -48,7 +48,7 @@ toc: false
 
 <div class="hero">
   <h1>FDA Dashboards</h1>
-  <h2>Only showing data for Biologics, Drugs, and Devices.</h2>
+  <h2>View original data sources here</h2>
   <a href="https://datadashboard.fda.gov/ora/cd/index.htm">View original source<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
 </div>
 

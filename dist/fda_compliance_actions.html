@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>FDA Compliance Actions | Home</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight,alt,wide.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight,alt,wide.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/_esm.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.15/_esm.js">
+<link rel="modulepreload" href="./_npm/topojson-client@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/_esm.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/_esm.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/_esm.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/_esm.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+import {registerFile} from "./_observablehq/stdlib.js";
+
+registerFile("./data/compliance_countries.csv", {"name":"./data/compliance_countries.csv","mimeType":"text/csv","path":"./_file/data/compliance_countries.b0bfef1b.csv","lastModified":1720597738905});
+registerFile("./data/compliance_fiscal.csv", {"name":"./data/compliance_fiscal.csv","mimeType":"text/csv","path":"./_file/data/compliance_fiscal.691ae2fa.csv","lastModified":1720493256177});
+registerFile("./data/compliance_products.csv", {"name":"./data/compliance_products.csv","mimeType":"text/csv","path":"./_file/data/compliance_products.f49321c6.csv","lastModified":1720493256181});
+registerFile("./data/countries-110m.json", {"name":"./data/countries-110m.json","mimeType":"application/json","path":"./_file/data/countries-110m.2516c915.json","lastModified":1720596854590});
+registerFile("./data/fda_compliance_actions.csv", {"name":"./data/fda_compliance_actions.csv","mimeType":"text/csv","path":"./_file/data/fda_compliance_actions.f484e0ac.csv","lastModified":1720493256247});
+registerFile("./data/warning_letters_fiscal.csv", {"name":"./data/warning_letters_fiscal.csv","mimeType":"text/csv","path":"./_file/data/warning_letters_fiscal.4d1b7405.csv","lastModified":1720493256443});
+
+define({id: "8fffee1e", inputs: ["FileAttachment"], outputs: ["fda_compliance_actions","warning_letters_fiscal","compliance_fiscal","compliance_products"], body: (FileAttachment) => {
+const fda_compliance_actions = FileAttachment("./data/fda_compliance_actions.csv").csv({typed: true});
+const warning_letters_fiscal = FileAttachment("./data/warning_letters_fiscal.csv").csv({typed: true});
+const compliance_fiscal = FileAttachment("./data/compliance_fiscal.csv").csv({typed: true});
+const compliance_products = FileAttachment("./data/compliance_products.csv").csv({typed: true});
+return {fda_compliance_actions,warning_letters_fiscal,compliance_fiscal,compliance_products};
+}});
+
+define({id: "d3a75693", inputs: ["FileAttachment"], outputs: ["world"], body: (FileAttachment) => {
+// Load the TopoJSON file
+const world = FileAttachment("./data/countries-110m.json").json();
+return {world};
+}});
+
+define({id: "375baca0", inputs: ["FileAttachment"], outputs: ["complianceData"], body: (FileAttachment) => {
+// Load the compliance action data
+const complianceData = FileAttachment("./data/compliance_countries.csv").csv({typed: true});
+return {complianceData};
+}});
+
+define({id: "212393a4", inputs: ["topojson","world"], outputs: ["countriesGeoJSON"], body: (topojson,world) => {
+// Convert TopoJSON to GeoJSON
+const countriesGeoJSON = topojson.feature(world, world.objects.countries);
+return {countriesGeoJSON};
+}});
+
+define({id: "4a9c5090", inputs: ["complianceData"], outputs: ["complianceDataMap"], body: (complianceData) => {
+// Create a map of ISO codes to compliance data
+const complianceDataMap = new Map(complianceData.map(d => [d.ISO_Code, d]));
+return {complianceDataMap};
+}});
+
+define({id: "0d126c5a", outputs: ["validateCoordinates"], body: () => {
+// Function to validate coordinates
+function validateCoordinates(country, lon, lat) {
+  if (lon === null || lat === null) return null;
+  
+  // Correct incorrect coordinates from CSV
+  if (country === "Thailand") lon = 100.992541;
+  if (country === "Jordan") {
+    lat = 31.24;
+    lon = 36.51;
+  }
+  if (country === "Armenia") {
+    lat = 40.0691;
+    lon = 45.0382;
+  }
+  
+  // Ensure longitude is between -180 and 180
+  lon = ((lon + 180) % 360) - 180;
+  
+  // Ensure latitude is between -90 and 90
+  lat = Math.max(-90, Math.min(90, lat));
+  
+  return [lon, lat];
+}
+return {validateCoordinates};
+}});
+
+define({id: "9269f973", outputs: ["getResponsiveDimensions","width","height"], body: () => {
+// Function to calculate responsive dimensions
+function getResponsiveDimensions() {
+  const aspectRatio = 975 / 610;
+  const maxWidth = Math.min(975, window.innerWidth * 0.8);
+  const maxHeight = Math.min(610, window.innerHeight * 0.8);
+  
+  if (maxWidth / aspectRatio <= maxHeight) {
+    return { width: maxWidth, height: maxWidth / aspectRatio };
+  } else {
+    return { width: maxHeight * aspectRatio, height: maxHeight };
+  }
+}
+
+// Use the responsive dimensions in the chart
+const { width, height } = getResponsiveDimensions();
+return {getResponsiveDimensions,width,height};
+}});
+
+define({id: "3b865eb0", inputs: ["Plot","d3","complianceData","countriesGeoJSON","complianceDataMap","validateCoordinates","width","height","html","getResponsiveDimensions","display"], outputs: ["chart","container"], body: (Plot,d3,complianceData,countriesGeoJSON,complianceDataMap,validateCoordinates,width,height,html,getResponsiveDimensions,display) => {
+const chart = Plot.plot({
+  projection: d3.geoNaturalEarth1(), // {type: "orthographic", rotate: [45, -5]},
+  color: {
+    type: "quantize",
+    domain: [1, d3.max(complianceData, d => d.Count)],
+    range: d3.schemeBlues[7],
+    legend: true,
+    label: "Number of Compliance Actions",
+    tickFormat: d => d3.format(",")(Math.round(d))
+  },
+  marks: [
+    Plot.geo(countriesGeoJSON, {
+      fill: d => {
+        const countryData = complianceDataMap.get(d.id);
+        return countryData ? countryData.Count : 0;
+      },
+      stroke: "black", 
+      strokeWidth: 1.0,
+    }),
+    // Plot.sphere(),
+    Plot.dot(complianceData.filter(d => d.longitude != null && d.latitude != null), {
+      x: d => {
+      const coords = validateCoordinates(d.Country, +d.longitude, +d.latitude);
+      return coords ? coords[0] : null;
+    },
+    y: d => {
+      const coords = validateCoordinates(d.Country, +d.longitude, +d.latitude);
+      return coords ? coords[1] : null;
+    },
+    r: d => Math.sqrt(d.Count) * 0.5,
+    fill: d => d.Count,
+    fillOpacity: 1.0,
+    stroke: "black",
+    strokeWidth: 1.0,
+    title: d => `${d.Country}: ${d.Count.toLocaleString()} compliance actions (${d.Percentage.toFixed(1)}% of total)`
+  })
+  ],
+  width,
+  height,
+  marginRight: 0,
+  marginLeft: 0,
+  style: {
+    backgroundColor: "#1e1e1e",
+    color: "white",
+    fontFamily: "sans-serif",
+    fontSize: 18
+  },
+  x: {axis: null},
+  y: {axis: null},
+});
+
+// Create the container for the chart
+const container = html`<div class="card" style="display: flex; justify-content: center; 
+align-items: center; height: 80vh; background-color: #1e1e1e;">
+  ${chart}
+</div>`;
+
+// Add a resize listener to update the chart when the window size changes
+window.addEventListener('resize', () => {
+  const { width, height } = getResponsiveDimensions();
+  chart.update({width, height});
+});
+
+display(container);
+return {chart,container};
+}});
+
+define({id: "cc02bac6", mode: "inline", inputs: ["Plot","warning_letters_fiscal","display"], body: async (Plot,warning_letters_fiscal,display) => {
+display(await(
+Plot.plot({
+  width: window.innerWidth - 40,
+  height: 600,
+  marginLeft: 80,
+  marginRight: 80,
+  marginTop: 40,
+  marginBottom: 60,
+  inset: 20,
+  x: {
+    label: "Fiscal Year",
+    tickFormat: "d",
+    grid: true
+  },
+  y: {
+    label: "Warning Letters",
+    grid: true
+  },
+  color: {
+    legend: true,
+    domain: ["Biologics", "Drugs", "Devices"],
+    range: ["#23CE6B", "#F45D01", "#004E7C"]
+  },
+  marks: [
+    Plot.barY(warning_letters_fiscal, {
+      x: "Fiscal Year", 
+      y: "Total",
+      fill: "Product Type", 
+      tip: {
+        format: {
+          x: x => `Fiscal Year ${x}`,
+          y: y => y.toLocaleString()
+        }
+      }
+    }),
+    Plot.ruleY([0])
+  ],
+  style: {
+    fontSize: 18,
+    fontFamily: "sans-serif",
+    backgroundColor: "#1e1e1e",
+    color: "white"
+  }
+})
+))
+}});
+
+define({id: "df5f628c", mode: "inline", inputs: ["Plot","compliance_fiscal","display"], body: async (Plot,compliance_fiscal,display) => {
+display(await(
+Plot.plot({
+  width: window.innerWidth - 40,
+  height: 600,
+  marginLeft: 80,
+  marginRight: 80,
+  marginTop: 40,
+  marginBottom: 60,
+  inset: 20,
+  x: {
+    label: "Fiscal Year",
+    tickFormat: "d",
+    grid: true
+  },
+  y: {
+    label: "Action Type",
+    grid: true
+  },
+  color: {
+    legend: true,
+    domain: ["Injunction", "Seizure"],
+    range: ["#004e7c", "#23CE6B"]
+  },
+  marks: [
+    Plot.barY(compliance_fiscal, {
+      x: "Fiscal Year", 
+      y: "Total",
+      fill: "Action Type", 
+      tip: {
+        format: {
+          x: x => `Fiscal Year ${x}`,
+          y: y => y.toLocaleString()
+        }
+      }
+    }),
+    Plot.ruleY([0])
+  ],
+  style: {
+    fontSize: 18,
+    fontFamily: "sans-serif",
+    backgroundColor: "#1e1e1e",
+    color: "white"
+  }
+})
+))
+}});
+
+define({id: "466d3a80", mode: "inline", inputs: ["Plot","compliance_products","display"], body: async (Plot,compliance_products,display) => {
+display(await(
+Plot.plot({
+  width: window.innerWidth - 35,
+  height: 450,
+  marginLeft: 100,
+  marginRight: 80,
+  marginTop: 40,
+  marginBottom: 60,
+  x: {
+    label: "Total Actions Taken",
+    grid: true
+  },
+  y: {
+    label: null,
+    domain: compliance_products.map(d => d["Product Type"]).filter((v, i, a) => a.indexOf(v) === i)
+  },
+  color: {
+    legend: true,
+    domain: ["Injunction", "Seizure"],
+    range: ["#004E7C", "#23CE6B"]
+  },
+  marks: [
+    Plot.barX(compliance_products, {
+      y: "Product Type",
+      x: "Total",
+      fill: "Action Type",
+      sort: {y: "x", reverse: true},
+      tip: {
+        format: {
+          x: x => x.toLocaleString(),
+          y: y => y
+        }
+      }
+    }),
+    Plot.ruleX([0])
+  ],
+  style: {
+    fontSize: 18,
+    fontFamily: "sans-serif",
+    backgroundColor: "#1e1e1e",
+    color: "white"
+  }
+})
+))
+}});
+
+define({id: "d3813b03", mode: "inline", inputs: ["Inputs","fda_compliance_actions","display"], body: async (Inputs,fda_compliance_actions,display) => {
+display(await(
+Inputs.table(fda_compliance_actions, {
+    format: {
+      "FEI Number": (a) => a != null ? a.toString().replace(/,/g, '') : '',
+      "Case/Injunction ID": (b) => b != null ? b.toString().replace(/,/g, '') : '',
+    }
+  })
+))
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">Home</a></li>
+  </ol>
+  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
+  <div id="observablehq-search-results"></div>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <ol>
+    <li class="observablehq-link"><a href="./fda_citations">FDA Citations</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./fda_compliance_actions">FDA Compliance Actions</a></li>
+    <li class="observablehq-link"><a href="./fda_inspections">FDA Inspections</a></li>
+    <li class="observablehq-link"><a href="./fda_recalls">FDA Recalls</a></li>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#global-map-of-compliance-actions">Global Map of Compliance Actions</a></li>
+<li class="observablehq-secondary-link"><a href="#warning-letters-by-fiscal-year-%26-product-type">Warning Letters by Fiscal Year &amp; Product Type</a></li>
+<li class="observablehq-secondary-link"><a href="#injunctions-%26-seizures-by-fiscal-year">Injunctions &amp; Seizures by Fiscal Year</a></li>
+<li class="observablehq-secondary-link"><a href="#injunctions-%26-seizures-by-product-type">Injunctions &amp; Seizures by Product Type</a></li>
+<li class="observablehq-secondary-link"><a href="#compliance-actions-details">Compliance Actions Details</a></li>
+</ol>
+</nav>
+</aside>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<h1 id="fda-compliance-actions" tabindex="-1"><a class="observablehq-header-anchor" href="#fda-compliance-actions">FDA Compliance Actions</a></h1>
+<!-- Load and transform the data -->
+<div class="observablehq observablehq--block"><!--:8fffee1e:--></div>
+<div class="grid grid-cols-3">
+  <div class="card"><h1>Global Compliance Actions</h1>4,233</div>
+  <div class="card"><h1>US Compliance Actions</h1>2,992 or 70.7% of total</div>
+  <div class="card">
+    <h1>Note:</h1> Only showing data for Biologics, Drugs, and Devices product types and Fiscal Years 2008 to 2024.
+  </div>
+</div>
+<hr>
+<h2 id="global-map-of-compliance-actions" tabindex="-1"><a class="observablehq-header-anchor" href="#global-map-of-compliance-actions">Global Map of Compliance Actions</a></h2>
+<div class="observablehq observablehq--block"><!--:d3a75693:--></div>
+<div class="observablehq observablehq--block"><!--:375baca0:--></div>
+<div class="observablehq observablehq--block"><!--:212393a4:--></div>
+<div class="observablehq observablehq--block"><!--:4a9c5090:--></div>
+<!-- ```js
+// Console.log to catch errors
+console.log(complianceData.slice(0, 67));
+``` -->
+<div class="observablehq observablehq--block"><!--:0d126c5a:--></div>
+<div class="observablehq observablehq--block"><!--:9269f973:--></div>
+<div class="observablehq observablehq--block"><!--:3b865eb0:--></div>
+<hr>
+<h2 id="warning-letters-by-fiscal-year-%26-product-type" tabindex="-1"><a class="observablehq-header-anchor" href="#warning-letters-by-fiscal-year-%26-product-type">Warning Letters by Fiscal Year &amp; Product Type</a></h2>
+<div class="card">
+  <observablehq-loading></observablehq-loading><!--:cc02bac6:-->
+</div>
+<hr>
+<h2 id="injunctions-%26-seizures-by-fiscal-year" tabindex="-1"><a class="observablehq-header-anchor" href="#injunctions-%26-seizures-by-fiscal-year">Injunctions &amp; Seizures by Fiscal Year</a></h2>
+<div class="card">
+  <observablehq-loading></observablehq-loading><!--:df5f628c:-->
+</div>
+<hr>
+<h2 id="injunctions-%26-seizures-by-product-type" tabindex="-1"><a class="observablehq-header-anchor" href="#injunctions-%26-seizures-by-product-type">Injunctions &amp; Seizures by Product Type</a></h2>
+<div class="card">
+  <observablehq-loading></observablehq-loading><!--:466d3a80:-->
+</div>
+<hr>
+<h2 id="compliance-actions-details" tabindex="-1"><a class="observablehq-header-anchor" href="#compliance-actions-details">Compliance Actions Details</a></h2>
+<div class="card">
+  <observablehq-loading></observablehq-loading><!--:d3813b03:-->
+</div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./fda_citations"><span>FDA Citations</span></a><a rel="next" href="./fda_inspections"><span>FDA Inspections</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2024-12-19T16:30:35">Dec 19, 2024</a>.</div>
+</footer>
+</div>
